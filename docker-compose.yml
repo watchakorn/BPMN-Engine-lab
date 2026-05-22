@@ -1,0 +1,12 @@
+services:
+  flowable:
+    image: flowable/flowable-ui:6.8.0
+    container_name: flowable-engine
+    ports:
+      - "9000:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --header='Authorization: Basic YWRtaW46dGVzdA==' http://localhost:8080/flowable-ui/process-api/repository/deployments || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 90s

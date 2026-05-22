@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  targetNamespace="http://www.flowable.org/processdef">
+
+  <process id="fixedFlow" name="Fixed Credit Card Flow" isExecutable="false">
+    <startEvent id="start" name="Submit Application"/>
+    <serviceTask id="creditCheck" name="Mock Credit Check"/>
+    <exclusiveGateway id="scoreGateway" name="Score?"/>
+    <endEvent id="autoApproved" name="Auto Approved"/>
+    <userTask id="managerReview" name="Manager Review"/>
+    <exclusiveGateway id="managerDecision" name="Approved?"/>
+    <endEvent id="approved" name="Approved"/>
+    <endEvent id="rejected" name="Rejected"/>
+    <endEvent id="autoRejected" name="Auto Rejected"/>
+
+    <sequenceFlow id="f1" sourceRef="start" targetRef="creditCheck"/>
+    <sequenceFlow id="f2" sourceRef="creditCheck" targetRef="scoreGateway"/>
+    <sequenceFlow id="f3" name="Score >= 700" sourceRef="scoreGateway" targetRef="autoApproved">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[score >= 700]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="f4" name="400-699" sourceRef="scoreGateway" targetRef="managerReview"/>
+    <sequenceFlow id="f5" name="Score < 400" sourceRef="scoreGateway" targetRef="autoRejected"/>
+    <sequenceFlow id="f6" sourceRef="managerReview" targetRef="managerDecision"/>
+    <sequenceFlow id="f7" name="Approve" sourceRef="managerDecision" targetRef="approved"/>
+    <sequenceFlow id="f8" name="Reject" sourceRef="managerDecision" targetRef="rejected"/>
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="fixedFlow">
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start">
+        <omgdc:Bounds x="80" y="190" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="creditCheck_di" bpmnElement="creditCheck">
+        <omgdc:Bounds x="170" y="168" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="scoreGateway_di" bpmnElement="scoreGateway" isMarkerVisible="true">
+        <omgdc:Bounds x="360" y="183" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="autoApproved_di" bpmnElement="autoApproved">
+        <omgdc:Bounds x="500" y="80" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="managerReview_di" bpmnElement="managerReview">
+        <omgdc:Bounds x="480" y="168" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="managerDecision_di" bpmnElement="managerDecision" isMarkerVisible="true">
+        <omgdc:Bounds x="680" y="183" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="approved_di" bpmnElement="approved">
+        <omgdc:Bounds x="820" y="120" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="rejected_di" bpmnElement="rejected">
+        <omgdc:Bounds x="820" y="260" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="autoRejected_di" bpmnElement="autoRejected">
+        <omgdc:Bounds x="500" y="320" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f1_di" bpmnElement="f1">
+        <omgdi:waypoint x="116" y="208"/><omgdi:waypoint x="170" y="208"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f2_di" bpmnElement="f2">
+        <omgdi:waypoint x="300" y="208"/><omgdi:waypoint x="360" y="208"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f3_di" bpmnElement="f3">
+        <omgdi:waypoint x="385" y="183"/><omgdi:waypoint x="385" y="98"/><omgdi:waypoint x="500" y="98"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f4_di" bpmnElement="f4">
+        <omgdi:waypoint x="410" y="208"/><omgdi:waypoint x="480" y="208"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f5_di" bpmnElement="f5">
+        <omgdi:waypoint x="385" y="233"/><omgdi:waypoint x="385" y="338"/><omgdi:waypoint x="500" y="338"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f6_di" bpmnElement="f6">
+        <omgdi:waypoint x="610" y="208"/><omgdi:waypoint x="680" y="208"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f7_di" bpmnElement="f7">
+        <omgdi:waypoint x="705" y="183"/><omgdi:waypoint x="705" y="138"/><omgdi:waypoint x="820" y="138"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f8_di" bpmnElement="f8">
+        <omgdi:waypoint x="705" y="233"/><omgdi:waypoint x="705" y="278"/><omgdi:waypoint x="820" y="278"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build outputs
+dist/
+*/dist/
+
+# Runtime logs
+*.log
+*.err.log
+backend.runtime.log
+backend.runtime.err.log
+frontend.runtime.log
+frontend.runtime.err.log
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+
+# Local agent/tool state
+.superpowers/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Coverage and caches
+coverage/
+.nyc_output/
+.vite/
+.cache/
