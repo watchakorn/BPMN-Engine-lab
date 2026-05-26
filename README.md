@@ -1,4 +1,4 @@
-﻿# BPMN Engine POC โ€” Flowable Approval Flow
+# BPMN Engine POC — Flowable Approval Flow
 
 Standard approval flow POC built on [Flowable](https://www.flowable.com/) BPMN engine.
 
@@ -28,15 +28,15 @@ That's it. The script will:
 ## Manual Start
 
 ```powershell
-# Terminal 1 โ€” Flowable
+# Terminal 1 — Flowable
 docker-compose up -d
 
-# Terminal 2 โ€” Backend (waits for Flowable automatically)
+# Terminal 2 — Backend (waits for Flowable automatically)
 cd backend
 npm install
 node server.js
 
-# Terminal 3 โ€” Frontend
+# Terminal 3 — Frontend
 cd frontend
 npm install
 npm run dev
@@ -45,25 +45,25 @@ npm run dev
 ## Approval Flow
 
 ```
-[Start] โ’ [Manager Approval Task] โ’ [Gateway]
-                                      โ”โ”€โ”€ approved=true  โ’ [End: Approved]
-                                      โ””โ”€โ”€ approved=false โ’ [End: Rejected]
+[Start] → [Manager Approval Task] → [Gateway]
+                                      ├── approved=true  → [End: Approved]
+                                      └── approved=false → [End: Rejected]
 ```
 
 ## Using the POC
 
-1. **New Request** โ€” Submit an approval request (requester name, description, amount, priority)
-2. **Task Inbox** โ€” Click a task to expand, optionally add reviewer name + comment, then Approve or Reject
-3. **All Requests** โ€” View full history with status filters
+1. **New Request** — Submit an approval request (requester name, description, amount, priority)
+2. **Task Inbox** — Click a task to expand, optionally add reviewer name + comment, then Approve or Reject
+3. **All Requests** — View full history with status filters
 
 ## Flowable Admin UI
 
 Access at `http://localhost:9000/flowable-ui` - credentials: `admin` / `test`
 
 REST base URL: `http://localhost:9000/flowable-ui/process-api`
-- **Flowable Task** โ€” view process instances and tasks
-- **Flowable Admin** โ€” monitor engine, manage deployments
-- **Flowable Modeler** โ€” visual BPMN editor
+- **Flowable Task** — view process instances and tasks
+- **Flowable Admin** — monitor engine, manage deployments
+- **Flowable Modeler** — visual BPMN editor
 
 ## Backend API
 
